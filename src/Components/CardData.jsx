@@ -1,10 +1,9 @@
-import { div } from 'framer-motion/client';
-import React from 'react';
-import RatingStars from './Stars';
-const InfoCard = () => {
+import React from 'react'
+
+const CardData = () => {
     const cardData =[
         {
-            image: "/Logos/p1.png",
+            image: "/src/assets/Images/p1.png",
             title: "Decentraland",
             rating: "3.94 / 5",
             votes: "Based on 16 votes",
@@ -13,7 +12,7 @@ const InfoCard = () => {
             btn2: "Go to Website >", 
           },
           {
-            image: "/Logos/p2.png",
+            image: "/src/assets/Images/p2.png",
             title: "Uniswap",
             rating: "4.5 / 5",
             votes: "Based on 19 votes",
@@ -22,7 +21,7 @@ const InfoCard = () => {
             btn2: "Go to Website >", 
           },
           {
-            image: "/Logos/p3.png",
+            image: "/src/assets/Images/p3.png",
             title: "Uniswap",
             rating: "3.44 / 5",
             votes: "Based on 16 votes",
@@ -31,7 +30,7 @@ const InfoCard = () => {
             btn2: "Go to Website >", 
           },
           {
-            image: "/Logos/p4.png",
+            image: "/src/assets/Images/p4.png",
             title: "Uniswap",
             rating: "3,65 / 5",
             votes: "Basedon 31 votes",
@@ -40,35 +39,6 @@ const InfoCard = () => {
             btn2: "Go to Website >", 
           },
     ]
-  return (
-    <div className='pt-32 flex flex-col gap-6'>
-        {cardData.map((v,i)=>(
-            
-    <div
-     className="max-w-[330px]   sm:max-w-2xl  bg-gray-900 text-white sm:rounded-2xl rounded-4xl p-5 py-12 shadow-lg  mx-auto ">
-      <div className="flex items-center  space-x-4 ">
-        <img
-          src={v.image}
-          alt={v.title}
-          className="w-20 h-20 mb-5"
-        />
-        <div>
-          <h2 className="text-xl font-bold">{v.title}</h2>
-          <p>{v.rating}</p>
-          <p className='text-[14px] text-gray-400'>{v.votes}</p>
-          <RatingStars rating={v.rating} />
-        </div>
-      </div>
-      <p className="mt-1 text-gray-300 sm:text-sm text-[10px] ml-24">
-        {v.description}
-      </p>
-      <button className="mt-2 text-blue-400 hover:underline sm:text-sm text-[10px] ml-24">
-       {v.button1} {v.btn2}
-      </button>
-    </div>
-        ))}
-    </div>
-  );
-};
+}
 
-export default InfoCard;
+export default CardData
