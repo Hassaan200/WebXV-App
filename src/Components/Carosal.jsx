@@ -4,13 +4,13 @@ import React from 'react'
 // components/PartnersSection.jsx
 
 const partners = [
-  { name: "Onramp", src: "/public/Logos/17 (1) 1.png" },
-  { name: "PinkSale", src: "/public/Logos/L2.png" },
-  { name: "Uniswap", src: "/public/Logos/L3.png" },
-  { name: "CoinGecko", src: "/public/Logos/L4.png" },
-  { name: "PancakeSwap", src: "/public/Logos/L5.png" },
-  { name: "DEXView", src: "/public/Logos/L6.png" },
-  { name: "CoinMarketCap", src: "/public/Logos/L7.png" },
+  { name: "Onramp", src: "/Logos/17 (1) 1.png" },
+  { name: "PinkSale", src: "/Logos/L2.png" },
+  { name: "Uniswap", src: "/Logos/L3.png" },
+  { name: "CoinGecko", src: "/Logos/L4.png" },
+  { name: "PancakeSwap", src: "/Logos/L5.png" },
+  { name: "DEXView", src: "/Logos/L6.png" },
+  { name: "CoinMarketCap", src: "/Logos/L7.png" },
 ];
 
 export default function Carosal() {
