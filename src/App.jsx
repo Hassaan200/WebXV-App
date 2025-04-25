@@ -5,6 +5,8 @@ import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import SideNav from './Components/SideNav';
 import Footer from './Components/Footer';
+import Projects from './Components/All Projects';
+import { Routes, Route } from 'react-router';
 
 function App() {
   
@@ -13,7 +15,10 @@ function App() {
     <>
     <Navbar/>
     <SideNav/>
-    <Home/>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/Projects" element={<Projects />} />
+    </Routes>
     <Footer/>
     </>
   )

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu } from 'lucide-react';
 import logo from '../assets/Images/logonav.png'
+import { Link } from "react-router";
 
 
 export default function RightSidebar() {
@@ -33,7 +34,7 @@ export default function RightSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-64  bg-[rgb(12,18,24)] shadow-lg z-50 transform transition-transform duration-300 rounded-l-4xl ${
+        className={`fixed top-0 right-0 h-full w-64  bg-[rgb(12,18,24)] shadow-lg z-50 transform transition-transform duration-300 rounded-l-xl ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -42,10 +43,11 @@ export default function RightSidebar() {
           <button onClick={() => setIsOpen(false)}>✕</button>
         </div>
         <ul className="p-4 space-y-4">
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li>Contact</li>
+       <li><Link to="/" onClick={() => setIsOpen(false)}>Web XV</Link></li>
+                   <li><Link to="/Projects" onClick={() => setIsOpen(false)}>All projects</Link></li>
+                   <li><a href="">Community</a></li>
+                   <li><a href="">About us</a></li>
+            <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer">REGISTER</button>
         </ul>
       </div>
      </div>

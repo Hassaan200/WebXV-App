@@ -1,15 +1,16 @@
 import React from 'react'
 import logo from '../assets/Images/logonav.png'
+import { Link } from 'react-router'
 const Navbar = () => {
   return (
-    <nav className='border-1 border-gray-900 fixed w-full z-50 shadow-xl bg-[rgb(12,18,24)] hidden lg:block'>
+    <nav className='border-1 border-gray-900 fixed w-full top-0 z-50 shadow-xl bg-[rgb(12,18,24)] hidden lg:block'>
       <ul className='flex justify-around items-center h-20'>
         <div>
             <img src={logo} alt="" />
         </div>
         <div className='flex gap-6'>
-            <li><a href="">Web XV</a></li>
-            <li><a href="">All projects</a></li>
+            <li><Link to="/">Web XV</Link></li>
+            <li><Link to="/Projects">All projects</Link></li>
             <li><a href="">Community</a></li>
             <li><a href="">About us</a></li>
         </div>
