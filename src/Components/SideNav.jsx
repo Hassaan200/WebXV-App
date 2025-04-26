@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu } from 'lucide-react';
 import logo from '../assets/Images/logonav.png'
 import { Link } from "react-router";
-
+import { NavLink } from "react-router";
 
 export default function RightSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,11 +43,15 @@ export default function RightSidebar() {
           <button onClick={() => setIsOpen(false)}>✕</button>
         </div>
         <ul className="p-4 space-y-4">
-       <li><Link to="/" onClick={() => setIsOpen(false)}>Web XV</Link></li>
-                   <li><Link to="/Projects" onClick={() => setIsOpen(false)}>All projects</Link></li>
-                   <li><Link to="/Community" onClick={() => setIsOpen(false)}>Community</Link></li>
-                   <li><Link to="/About" onClick={() => setIsOpen(false)}>About us</Link></li>
-            <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer">REGISTER</button>
+       <li><NavLink to="/" onClick={() => setIsOpen(false)} className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>Web XV</NavLink></li>
+                   <li><NavLink to="/Projects" onClick={() => setIsOpen(false)} className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>All projects</NavLink></li>
+                   <li><NavLink to="/Community" onClick={() => setIsOpen(false)} className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>Community</NavLink></li>
+                   <li><NavLink to="/About" onClick={() => setIsOpen(false)} className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>About us</NavLink></li>
+            <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer" onClick={() => setIsOpen(false)}><Link to="/Community">REGISTER</Link></button>
         </ul>
       </div>
      </div>

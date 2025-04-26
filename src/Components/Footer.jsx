@@ -8,8 +8,8 @@ const Footer = () => {
       <footer className="footer  bg-base-200  mt-10 ">
         <div  className="footer flex justify-around  sm:footer-horizontal bg-base-200 text-base-content p-10 ">
   <aside >
-    <img src={logo} alt="" />
-    <p className='pt-3 sm:text-[16px] text-[12px]'>
+    <img src={logo} alt="" className='w-[60px] sm:w-[90px]' />
+    <p className='sm:pt-3 pt-2 sm:text-[16px] text-[12px]'>
     A SocialFi platform for Web3.0 projects to connect with users.
       <br /><br />
       WebXV is a decentralized social platform for Web3.0 <br /> users to meet and connect with one another

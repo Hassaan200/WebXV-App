@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/Images/logonav.png'
 import { Link } from 'react-router'
+import { NavLink } from 'react-router'
 const Navbar = () => {
   return (
     <nav className='border-1 border-gray-900 fixed w-full top-0 z-50 shadow-xl bg-[rgb(12,18,24)] hidden lg:block'>
@@ -9,13 +10,17 @@ const Navbar = () => {
             <img src={logo} alt="" />
         </div>
         <div className='flex gap-6'>
-            <li><Link to="/">Web XV</Link></li>
-            <li><Link to="/Projects">All projects</Link></li>
-            <li><Link to="/Community">Community</Link></li>
-            <li><Link to="/About">About us</Link></li>
+            <li><NavLink to="/" className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>Web XV</NavLink></li>
+            <li><NavLink to="/Projects" className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>All projects</NavLink></li>
+            <li><NavLink to="/Community" className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>Community</NavLink></li>
+            <li><NavLink to="/About" className={({isActive})=>
+            isActive ? 'text-white' : 'text-gray-400'}>About us</NavLink></li>
         </div>
         <div>
-            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer">REGISTER</button>
+            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"><Link to="/Community">REGISTER</Link></button>
         </div>
 
       </ul>
