@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 
 const CommunityPage = () => {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
       const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -29,14 +29,14 @@ const CommunityPage = () => {
       };
   return (
     <>
-    <div className="flex flex-wrap justify-center pt-20 items-center sm:gap-10">
+    <div className="flex flex-wrap justify-center pt-20 items-center sm:gap-10 gap-4">
         <div>
 
-        <img src="/Images/c1.png" alt="" className='sm:w-[500px] w-[320px] lg:mt-22 ' />
+        <img src="/Images/c1.png" alt="" className='md:w-[500px] w-[330px] lg:mt-9 ' />
         </div>
         {/* Form section */}
     
-        <div className="lg:w-1/3 md:max-w-[50%] sm:max-w-[360px] max-w-[280px] sm:h-auto  rounded-2xl lg:mt-20 mt-10 bg-gray-900  sm:p-12 p-8">
+        <div className="lg:w-1/3 md:max-w-[50%] sm:max-w-[360px] max-w-[330px] sm:h-auto  rounded-2xl lg:mt-20 mt-10 bg-gray-900  sm:p-12 p-8">
         <div className="w-full lg:max-w-md">
           <h2 className="sm:text-3xl text-2xl font-bold mb-6 text-center">{isLogin ? 'Welcome back' : 'Create account'}</h2>
           
