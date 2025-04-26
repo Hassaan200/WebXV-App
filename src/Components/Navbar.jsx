@@ -11,8 +11,8 @@ const Navbar = () => {
         <div className='flex gap-6'>
             <li><Link to="/">Web XV</Link></li>
             <li><Link to="/Projects">All projects</Link></li>
-            <li><a href="">Community</a></li>
-            <li><a href="">About us</a></li>
+            <li><Link to="/Community">Community</Link></li>
+            <li><Link to="/About">About us</Link></li>
         </div>
         <div>
             <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer">REGISTER</button>

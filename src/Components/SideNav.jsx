@@ -45,8 +45,8 @@ export default function RightSidebar() {
         <ul className="p-4 space-y-4">
        <li><Link to="/" onClick={() => setIsOpen(false)}>Web XV</Link></li>
                    <li><Link to="/Projects" onClick={() => setIsOpen(false)}>All projects</Link></li>
-                   <li><a href="">Community</a></li>
-                   <li><a href="">About us</a></li>
+                   <li><Link to="/Community" onClick={() => setIsOpen(false)}>Community</Link></li>
+                   <li><Link to="/About" onClick={() => setIsOpen(false)}>About us</Link></li>
             <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer">REGISTER</button>
         </ul>
       </div>
