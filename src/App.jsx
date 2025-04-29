@@ -31,8 +31,8 @@ function App() {
 
   return (
     <>
-    <Navbar user={user} justRegistered={justRegistered}/>
-    <SideNav/>
+    <Navbar user={user} justRegistered={justRegistered} setJustRegistered={setJustRegistered}/>
+    <SideNav user={user} justRegistered={justRegistered} setJustRegistered={setJustRegistered}/>
     <Routes>
       <Route path="/" element={<Home setJustRegistered={setJustRegistered}/>} />
       <Route path="/Projects" element={<Projects />} />

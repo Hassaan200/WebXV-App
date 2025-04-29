@@ -6,10 +6,15 @@ import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
 
-const Navbar = ({ user, justRegistered }) => {
+const Navbar = ({ user, justRegistered, setJustRegistered }) => {
   const handleLogout = async () => {
-    await signOut(auth);
-    toast.success('Logged out successfully');
+    try {
+      await signOut(auth);
+      toast.success('Logged out successfully!');
+      setJustRegistered(false); 
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
   return (
     <nav className='border-1 border-gray-900 fixed w-full top-0 z-50 shadow-xl bg-[rgb(12,18,24)] hidden lg:block'>
@@ -30,7 +35,7 @@ const Navbar = ({ user, justRegistered }) => {
         <div>
           {user ?(
             <button
-            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer"
             onClick={handleLogout}
           >
            <Link to="/">LOGOUT</Link>

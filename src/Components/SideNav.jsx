@@ -3,10 +3,17 @@ import { Menu } from 'lucide-react';
 import logo from '../assets/Images/logonav.png'
 import { Link } from "react-router";
 import { NavLink } from "react-router";
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
-export default function RightSidebar() {
+export default function RightSidebar({ user, justRegistered }) {
   const [isOpen, setIsOpen] = useState(false);
-
+const handleLogout = async () => {
+    await signOut(auth);
+    toast.success('Logged out successfully');
+    setIsOpen(false)
+  };
   return (
     <>
       
@@ -51,7 +58,18 @@ export default function RightSidebar() {
             isActive ? 'text-white' : 'text-gray-400'}>Community</NavLink></li>
                    <li><NavLink to="/About" onClick={() => setIsOpen(false)} className={({isActive})=>
             isActive ? 'text-white' : 'text-gray-400'}>About us</NavLink></li>
-            <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer" onClick={() => setIsOpen(false)}><Link to="/Community">REGISTER</Link></button>
+            {user ?(
+               <button
+                          className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-normal text-[12px] cursor-pointer"
+                          onClick={handleLogout}
+                        >
+                         <Link to="/">LOGOUT</Link>
+                        </button>
+                        ):
+                        justRegistered ?(
+            <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium cursor-pointer" onClick={() => setIsOpen(false)}><Link to="/">LOGIN</Link></button>
+          ):(<button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"  onClick={() => setIsOpen(false)}><Link to="/Community">REGISTER</Link></button>)
+                    }
         </ul>
       </div>
      </div>

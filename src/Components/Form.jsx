@@ -97,10 +97,10 @@ const Form = ({ setJustRegistered }) => {
           )
         ) : (
           <button
-          className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-lg font-medium cursor-pointer text-[16px]"
           onClick={handleLogout}
         >
-          LOGOUT
+          LOG OUT
         </button>
         )}
         </div>
@@ -188,8 +188,8 @@ const Form = ({ setJustRegistered }) => {
           </div>
         </div>
       ) : (
-        <div className="text-center">
-          <h2 className="sm:text-2xl text-xl font-bold">Welcome,<br /> {user.email}</h2>
+        <div className="text-center mx-auto">
+          <h2 className="sm:text-3xl text-xl font-bold lg:mt-0 mt-8">Welcome,<br /> {user.email}</h2>
           
         </div>
       )}
