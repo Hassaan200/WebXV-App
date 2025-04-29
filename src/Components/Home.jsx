@@ -3,10 +3,10 @@ import Form from './Form'
 import Carosal from './Carosal'
 import Info from './Info'
 import Chart from './Chart'
-const Home = () => {
+const Home = ({ setJustRegistered }) => {
   return (
    <>
-   <Form/>
+   <Form setJustRegistered={setJustRegistered}/>
    <Carosal/>
    <Info/>
    <Chart/>

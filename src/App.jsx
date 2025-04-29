@@ -9,20 +9,37 @@ import Projects from './Components/All Projects';
 import { Routes, Route } from 'react-router';
 import AboutPage from './Components/AboutPage';
 import CommunityPage from './Components/CommunityPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './firebase'; // adjust path
+import { useEffect, useState } from 'react';
+
 
 function App() {
-  
+  const [user, setUser] = useState(null);
+  const [justRegistered, setJustRegistered] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
+      if (currentUser) setJustRegistered(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
-    <Navbar/>
+    <Navbar user={user} justRegistered={justRegistered}/>
     <SideNav/>
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home setJustRegistered={setJustRegistered}/>} />
       <Route path="/Projects" element={<Projects />} />
       <Route path="/About" element={<AboutPage />} />
       <Route path="/Community" element={<CommunityPage />} />
     </Routes>
+    <ToastContainer />
     <Footer/>
     </>
   )
