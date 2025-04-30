@@ -18,23 +18,33 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [justRegistered, setJustRegistered] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
+      setLoading(false);
       if (currentUser) setJustRegistered(false);
     });
 
     return () => unsubscribe();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
   return (
     <>
     <Navbar user={user} justRegistered={justRegistered} setJustRegistered={setJustRegistered}/>
     <SideNav user={user} justRegistered={justRegistered} setJustRegistered={setJustRegistered}/>
     <Routes>
-      <Route path="/" element={<Home setJustRegistered={setJustRegistered}/>} />
+      <Route path="/" element={<Home setJustRegistered={setJustRegistered} user={user}/>} />
       <Route path="/Projects" element={<Projects />} />
       <Route path="/About" element={<AboutPage />} />
       <Route path="/Community" element={<CommunityPage />} />

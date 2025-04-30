@@ -1,13 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
 import { toast } from 'react-toastify';
 
 const CommunityPage = ({ setJustRegistered }) => {
     const [isLogin, setIsLogin] = useState(false);
-     const [user, setUser] = useState(null);
-      const [formData, setFormData] = useState({
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: ''
@@ -16,9 +18,18 @@ const CommunityPage = ({ setJustRegistered }) => {
       useEffect(() => {
           const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            setLoading(false);
           });
           return () => unsubscribe();
         }, []);
+
+        if (loading) {
+          return (
+            <div className="flex items-center justify-center min-h-screen">
+             <div className="loader"></div>
+            </div>
+          );
+        }
 
       const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,39 +45,59 @@ const CommunityPage = ({ setJustRegistered }) => {
         setUser(null);
         setIsLogin(true);
       };
-
-        const handleSubmit = async (e) => {
-          e.preventDefault();
-          try {
-            if (isLogin) {
-              const userCredential = await signInWithEmailAndPassword(
-                auth,
-                formData.email,
-                formData.password
-              );
-              toast.success('Login successful!');
-              console.log('User logged in:', userCredential.user);
-              
-            } else {
-              const userCredential = await createUserWithEmailAndPassword(
-                auth,
-                formData.email,
-                formData.password
-              );
-              toast.success('Registration successful! Please log in.');
-              setJustRegistered(true); // <-- trigger state for Navbar
-              setIsLogin(true); 
-              console.log('User registered:', userCredential.user);
-        
-              // Log out the user after registration
-              await signOut(auth);
-              setIsLogin(true); // switch to login form
-            }
-          } catch (error) {
-            toast.error(error.message);
-            console.error(error);
-          }
-        };
+const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      toast.success(`Welcome ${user.displayName}`);
+      setUser(user);
+    } catch (error) {
+      toast.error('Google Sign-in failed');
+      console.error('Google sign-in error:', error);
+    }
+  };
+         const handleSubmit = async (e) => {
+           e.preventDefault();
+           try {
+             if (isLogin) {
+               const userCredential = await signInWithEmailAndPassword(
+                 auth,
+                 formData.email,
+                 formData.password
+               );
+               const user = userCredential.user;
+         
+               if (user.emailVerified) {
+                 toast.success('Login successful!');
+                 console.log('User logged in:', user);
+               } else {
+                 toast.error('Please verify your email before logging in.');
+                 await signOut(auth); 
+               }
+         
+             } else {
+               const userCredential = await createUserWithEmailAndPassword(
+                 auth,
+                 formData.email,
+                 formData.password
+               );
+               const user = userCredential.user;
+         
+               await sendEmailVerification(user); 
+         
+               toast.success('Registration successful! Please check your email to verify your account.');
+               setJustRegistered(true); 
+               setIsLogin(true); 
+         
+               //  log the user out immediately
+               await signOut(auth);
+             }
+           } catch (error) {
+             toast.error(error.message);
+             console.error(error);
+           }
+         };
 
 
   return (
@@ -136,6 +167,8 @@ const CommunityPage = ({ setJustRegistered }) => {
               </button>
 
               <div className="text-sm text-center">
+              <p className='text-center'>or</p>
+              <button type='button' className='block mx-auto  border border-gray-300 rounded-md px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
                 {isLogin ? (
                   <>
                     <a href="#" className="text-blue-400 hover:underline">Forgotten your password?</a>

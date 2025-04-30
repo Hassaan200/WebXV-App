@@ -42,8 +42,8 @@ const Navbar = ({ user, justRegistered, setJustRegistered }) => {
           </button>
           ):
           justRegistered ?(
-            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"><Link to="/">LOGIN</Link></button>
-          ):(<button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"><Link to="/Community">REGISTER</Link></button>)
+            <button className="bg-blue-600 hover:bg-blue-800 px-5 py-3 rounded-lg font-medium cursor-pointer"><Link to="/">LOGIN</Link></button>
+          ):(<button className="bg-blue-600 hover:bg-blue-800 px-5 py-3 rounded-lg font-medium cursor-pointer"><Link to="/Community">REGISTER</Link></button>)
           }
         </div>
       </ul>

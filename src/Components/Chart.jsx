@@ -6,8 +6,10 @@ import  b4  from '../assets/Images/b4.png'
 import  b5  from '../assets/Images/b5.png'
 import  g1  from '../assets/Images/g1.png'
 import { Link } from 'react-router'
+import { toast } from 'react-toastify'
 
-const Chart = () => {
+const Chart = ({user}) => {
+ 
   return (
     <>
     <div className='text-center mt-10'>
@@ -91,7 +93,10 @@ const Chart = () => {
 <div className='text-center mt-20  '>
     <h1 className='sm:text-5xl text-3xl font-bold  leading-relaxed sm:leading-snug'>With XV Token The Possibilities <br /> Are Limitless</h1>
     <p className='mt-7 sm:text-2xl text-xm'>One token for everything. XV is the utility token for an ecosystem that has gotten bigger <br />than ever before and is now fully community-oriented.</p>
-    <button className="bg-blue-600 hover:bg-blue-700 px-12 py-2 rounded-lg font-medium cursor-pointer mt-6 text-xl"><Link to="/Community">REGISTER NOW</Link></button>
+    {!user ?( <button className="bg-blue-600 hover:bg-blue-800 px-12 py-2 rounded-lg font-medium cursor-pointer mt-6 text-xl"><Link to="/Community">REGISTER NOW</Link></button>)
+    :(
+      <button className="bg-blue-600 hover:bg-blue-800 px-12 py-2 rounded-lg font-medium cursor-pointer mt-6 text-xl" onClick={() => toast.success('You are already registerted!')} >REGISTER NOW</button>
+    )}
 </div>
     </>
     

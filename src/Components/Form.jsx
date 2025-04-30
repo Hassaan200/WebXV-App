@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
 import { toast } from 'react-toastify';
+import { updateProfile } from 'firebase/auth';
 
 const Form = ({ setJustRegistered }) => {
   const [user, setUser] = useState(null); // Track Firebase user
+  const [loading, setLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     username: '',
@@ -12,13 +15,22 @@ const Form = ({ setJustRegistered }) => {
     password: ''
   });
 
-  // Listen for auth state changes
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +46,19 @@ const Form = ({ setJustRegistered }) => {
     setUser(null);
     setIsLogin(true);
   };
-  
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      toast.success(`Welcome ${user.displayName}`);
+      console.log(user.displayName)
+      setUser(user);
+    } catch (error) {
+      toast.error('Google Sign-in failed');
+      console.error('Google sign-in error:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,29 +69,42 @@ const Form = ({ setJustRegistered }) => {
           formData.email,
           formData.password
         );
-        toast.success('Login successful!');
-        console.log('User logged in:', userCredential.user);
-        
+        const user = userCredential.user;
+  
+        if (user.emailVerified) {
+          toast.success('Login successful!');
+          console.log('User logged in:', user);
+        } else {
+          toast.error('Please verify your email before logging in.');
+          await signOut(auth); 
+        }
+  
       } else {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           formData.email,
           formData.password
         );
-        toast.success('Registration successful! Please log in.');
-        setJustRegistered(true); // <-- trigger state for Navbar
-        setIsLogin(true); 
-        console.log('User registered:', userCredential.user);
+        const user = userCredential.user;
+        
+        await sendEmailVerification(user); 
+        await updateProfile(userCredential.user, {
+          displayName: formData.username,
+        });
   
-        // Log out the user after registration
+        toast.success('Registration successful! Please check your email to verify your account.');
+        setJustRegistered(true); 
+        setIsLogin(true); 
+  
+        //  log the user out immediately
         await signOut(auth);
-        setIsLogin(true); // switch to login form
       }
     } catch (error) {
       toast.error(error.message);
       console.error(error);
     }
   };
+  
   
 
   return (
@@ -80,6 +117,7 @@ const Form = ({ setJustRegistered }) => {
             Meet cool WEB3 projects and connect with other crypto enthusiasts!
           </p>
           {!user ?(
+            
           !isLogin ? (
             <button
               className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"
@@ -87,9 +125,10 @@ const Form = ({ setJustRegistered }) => {
             >
               LOGIN
             </button>
+            
           ) : (
             <button
-              className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium cursor-pointer"
+              className="bg-blue-600 hover:bg-blue-800 px-6 py-3 rounded-lg font-medium cursor-pointer"
               onClick={() => setIsLogin(false)}
             >
               REGISTER
@@ -97,12 +136,13 @@ const Form = ({ setJustRegistered }) => {
           )
         ) : (
           <button
-          className="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-lg font-medium cursor-pointer text-[16px]"
+          className="bg-blue-600 hover:bg-blue-800 px-5 py-3 rounded-lg font-medium cursor-pointer text-[16px]"
           onClick={handleLogout}
         >
           LOG OUT
         </button>
         )}
+        
         </div>
       </div>
 
@@ -159,19 +199,21 @@ const Form = ({ setJustRegistered }) => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-1.5 sm:py-2 px-4 rounded-lg font-medium mb-4"
+                className="w-full bg-blue-600 hover:bg-blue-800 text-white py-1.5 sm:py-2 px-4 rounded-lg font-medium mb-4 cursor-pointer"
               >
                 {isLogin ? 'LOGIN' : 'REGISTER'}
               </button>
-
               <div className="text-sm text-center">
+              <p className='text-center'>or</p>
+              <button type='button' className='block mx-auto  border border-gray-300 rounded-md px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
+              
                 {isLogin ? (
                   <>
                     <a href="#" className="text-blue-400 hover:underline">Forgotten your password?</a>
                     <p className="mt-2">
                       Don't have an account?{' '}
-                      <button type="button" onClick={() => setIsLogin(false)} className="text-blue-400 hover:underline">
-                        Register
+                      <button type="button" onClick={() => setIsLogin(false)} className="text-blue-400 hover:underline cursor-pointer">
+                        Register 
                       </button>
                     </p>
                   </>
@@ -189,7 +231,7 @@ const Form = ({ setJustRegistered }) => {
         </div>
       ) : (
         <div className="text-center mx-auto">
-          <h2 className="sm:text-3xl text-xl font-bold lg:mt-0 mt-8">Welcome,<br /> {user.email}</h2>
+          <h2 className="sm:text-5xl text-xl font-bold lg:mt-0 mt-8">Welcome,<br /> {user.displayName || user.email}!</h2>
           
         </div>
       )}
