@@ -5,6 +5,7 @@ import { auth } from '../firebase';
 import { toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
 
+
 const Form = ({ setJustRegistered }) => {
   const [user, setUser] = useState(null); // Track Firebase user
   const [loading, setLoading] = useState(true);
@@ -48,14 +49,18 @@ const Form = ({ setJustRegistered }) => {
   };
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
+    
+    
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       toast.success(`Welcome ${user.displayName}`);
+      
       console.log(user.displayName)
       setUser(user);
     } catch (error) {
       toast.error('Google Sign-in failed');
+     
       console.error('Google sign-in error:', error);
     }
   };
@@ -106,7 +111,6 @@ const Form = ({ setJustRegistered }) => {
   };
   
   
-
   return (
     <div className="lg:flex lg:items-center lg:justify-center text-white pt-30">
       {/* Left Side - Hero Section */}
@@ -205,11 +209,11 @@ const Form = ({ setJustRegistered }) => {
               </button>
               <div className="text-sm text-center">
               <p className='text-center'>or</p>
-              <button type='button' className='block mx-auto  border border-gray-300 rounded-md px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
+              <button type='button' className='block mx-auto  border border-gray-300 rounded-md sm:px-3 sm:py-2 sm:text-sm text-[11px] px-2 py-1 font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
               
                 {isLogin ? (
                   <>
-                    <a href="#" className="text-blue-400 hover:underline">Forgotten your password?</a>
+                    <a href="#" className="text-blue-400 hover:underline sm:text-[12px] text-[11px]">Forgotten your password?</a>
                     <p className="mt-2">
                       Don't have an account?{' '}
                       <button type="button" onClick={() => setIsLogin(false)} className="text-blue-400 hover:underline cursor-pointer">

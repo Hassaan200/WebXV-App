@@ -39,8 +39,13 @@ function App() {
     );
   }
 
+ 
   return (
+    
     <>
+   
+
+    
     <Navbar user={user} justRegistered={justRegistered} setJustRegistered={setJustRegistered}/>
     <SideNav user={user} justRegistered={justRegistered} setJustRegistered={setJustRegistered}/>
     <Routes>
@@ -51,6 +56,8 @@ function App() {
     </Routes>
     <ToastContainer />
     <Footer/>
+  
+  
     </>
   )
 }

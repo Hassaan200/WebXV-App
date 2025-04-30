@@ -110,7 +110,7 @@ const handleGoogleSignIn = async () => {
         {/* Form section */}
     
         {!user ? (
-        <div className="lg:w-1/3 md:max-w-[50%] sm:max-w-[360px] max-w-[280px] h-[440px] sm:h-auto rounded-2xl lg:mt-20 mt-10 bg-gray-900 sm:p-12 p-8 ">
+        <div className="lg:w-1/3 md:max-w-[50%] sm:max-w-[360px] max-w-[280px] h-[auto] sm:h-auto rounded-2xl lg:mt-20 mt-10 bg-gray-900 sm:p-12 p-8 ">
           <div className="w-full lg:max-w-md">
             <h2 className="sm:text-3xl text-2xl font-bold mb-6 text-center">
               {isLogin ? 'Welcome back' : 'Create account'}
@@ -168,10 +168,10 @@ const handleGoogleSignIn = async () => {
 
               <div className="text-sm text-center">
               <p className='text-center'>or</p>
-              <button type='button' className='block mx-auto  border border-gray-300 rounded-md px-3 py-2 text-sm font-medium text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
+              <button type='button' className='block mx-auto  border border-gray-300 rounded-md sm:px-3 sm:py-2 sm:text-sm text-[11px] px-2 py-1 font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
                 {isLogin ? (
                   <>
-                    <a href="#" className="text-blue-400 hover:underline">Forgotten your password?</a>
+                    <a href="#" className="text-blue-400 hover:underline sm:text-[12px] text-[11px]">Forgotten your password?</a>
                     <p className="mt-2">
                       Don't have an account?{' '}
                       <button type="button" onClick={() => setIsLogin(false)} className="text-blue-400 hover:underline">
