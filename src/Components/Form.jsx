@@ -92,11 +92,21 @@ const Form = ({ setJustRegistered }) => {
         );
         const user = userCredential.user;
         
+        setLoading(true)
+        if (loading) {
+          return (
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="loader"></div>
+            </div>
+          );
+        }
+        setTimeout(() => {
+          setLoading(false)
+        }, 3000);
         await sendEmailVerification(user); 
         await updateProfile(userCredential.user, {
           displayName: formData.username,
         });
-  
         toast.success('Registration successful! Please check your email to verify your account.');
         setJustRegistered(true); 
         setIsLogin(true); 
@@ -112,6 +122,9 @@ const Form = ({ setJustRegistered }) => {
   
   
   return (
+   
+
+   
     <div className="lg:flex lg:items-center lg:justify-center text-white pt-30">
       {/* Left Side - Hero Section */}
       <div className="mx-auto text-center lg:text-justify">
@@ -240,7 +253,9 @@ const Form = ({ setJustRegistered }) => {
         </div>
       )}
     </div>
+    
   );
+
 };
 
 export default Form;

@@ -193,7 +193,7 @@ const handleGoogleSignIn = async () => {
         </div>
       ) : (
         <div className="text-center mx-auto hidden">
-          <h2 className="sm:text-3xl text-xl font-bold lg:mt-0 mt-8">Welcome,<br /> {user.email}</h2>
+          <h2 className="sm:text-3xl text-xl font-bold lg:mt-0 mt-8">Welcome,<br />{user.displayName || user.email}!</h2>
           
         </div>
       )}
