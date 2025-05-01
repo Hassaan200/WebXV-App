@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification } from 'firebase/auth';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
 
 
@@ -115,8 +115,27 @@ const Form = ({ setJustRegistered }) => {
         await signOut(auth);
       }
     } catch (error) {
-      toast.error(error.message);
-      console.error(error);
+      console.error(error.message);
+      const errorCode = error.code;
+      if (errorCode === 'auth/invalid-email') {
+        toast.error('Invalid email address.');
+      } else if (errorCode === 'auth/user-not-found') {
+        toast.error('No account found with this email.');
+      } else if (errorCode === 'auth/wrong-password') {
+        toast.error('Incorrect password.');
+      } else if (errorCode === 'auth/email-already-in-use') {
+        toast.error('This email is already registered.');
+      } else if (errorCode === 'auth/weak-password') {
+        toast.error('Password should be at least 6 characters.');
+      } else if (errorCode === 'auth/popup-closed-by-user') {
+        toast.error('Popup was closed before signing in.');
+      } else if (errorCode === 'auth/unauthorized-domain') {
+        toast.error('Your domain is not authorized in Firebase.');
+      } else if (errorCode === 'auth/too-many-requests') {
+        toast.error('Too many failed attempts. Try again later.');
+      } else {
+        toast.error('Something went wrong: ' + error.message);
+      }
     }
   };
   
@@ -221,8 +240,11 @@ const Form = ({ setJustRegistered }) => {
                 {isLogin ? 'LOGIN' : 'REGISTER'}
               </button>
               <div className="text-sm text-center">
+
               <p className='text-center'>or</p>
-              <button type='button' className='block mx-auto  border border-gray-300 rounded-md sm:px-3 sm:py-2 sm:text-sm text-[11px] px-2 py-1 font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
+                
+              <button type='button' className='flex mx-auto  border border-gray-300 rounded-md px-3 py-2 sm:text-sm   font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}><img src="/Logos/google1.png" alt="" width={"22px"} />Continue With Google</button>
+                
               
                 {isLogin ? (
                   <>

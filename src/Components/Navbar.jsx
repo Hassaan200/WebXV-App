@@ -4,7 +4,8 @@ import { Link } from 'react-router'
 import { NavLink } from 'react-router'
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+
 
 const Navbar = ({ user, justRegistered, setJustRegistered }) => {
   const handleLogout = async () => {

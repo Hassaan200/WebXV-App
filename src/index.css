@@ -36,3 +36,28 @@ body{
   animation: l3 1s infinite linear;
 }
 @keyframes l3 {to{transform: rotate(1turn)}}
+
+
+
+/* partner css for auto moving  */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Default (desktop) speed */
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Faster on smaller screens */
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation: marquee 10s linear infinite;
+  }
+}

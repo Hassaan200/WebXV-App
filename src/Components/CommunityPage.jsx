@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification } from 'firebase/auth';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+
 
 const CommunityPage = ({ setJustRegistered }) => {
     const [isLogin, setIsLogin] = useState(false);
@@ -168,7 +169,7 @@ const handleGoogleSignIn = async () => {
 
               <div className="text-sm text-center">
               <p className='text-center'>or</p>
-              <button type='button' className='block mx-auto  border border-gray-300 rounded-md sm:px-3 sm:py-2 sm:text-sm text-[11px] px-2 py-1 font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}>Continue With Google</button>
+              <button type='button' className='flex mx-auto  border border-gray-300 rounded-md px-3 py-2 sm:text-sm   font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}><img src="/Logos/google1.png" alt="" width={"22px"} />Continue With Google</button>
                 {isLogin ? (
                   <>
                     <a href="#" className="text-blue-400 hover:underline sm:text-[12px] text-[11px]">Forgotten your password?</a>

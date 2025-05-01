@@ -9,7 +9,7 @@ import Projects from './Components/All Projects';
 import { Routes, Route } from 'react-router';
 import AboutPage from './Components/AboutPage';
 import CommunityPage from './Components/CommunityPage';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase'; // adjust path
@@ -54,7 +54,7 @@ function App() {
       <Route path="/About" element={<AboutPage />} />
       <Route path="/Community" element={<CommunityPage />} />
     </Routes>
-    <ToastContainer />
+    <Toaster position="top-center" reverseOrder={false}  />
     <Footer/>
   
   
