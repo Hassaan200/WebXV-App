@@ -10,6 +10,7 @@ const Form = ({ setJustRegistered }) => {
   const [user, setUser] = useState(null); // Track Firebase user
   const [loading, setLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
+  const [Show, setShow] = useState(false)
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -48,8 +49,9 @@ const Form = ({ setJustRegistered }) => {
     setIsLogin(true);
   };
   const handleGoogleSignIn = async () => {
+    setLoading(true);
     const provider = new GoogleAuthProvider();
-    
+   
     
     try {
       const result = await signInWithPopup(auth, provider);
@@ -62,6 +64,9 @@ const Form = ({ setJustRegistered }) => {
       toast.error('Google Sign-in failed');
      
       console.error('Google sign-in error:', error);
+    }
+    finally {
+      setLoading(false); 
     }
   };
 
@@ -139,12 +144,16 @@ const Form = ({ setJustRegistered }) => {
     }
   };
   
-  
+  {loading && (
+    <div className="flex items-center justify-center min-h-screen">
+    <div className="loader"></div>
+  </div>
+  )}
   return (
    
 
    
-    <div className="lg:flex lg:items-center lg:justify-center text-white pt-30">
+    <div className={`lg:flex lg:items-center lg:justify-center text-white ${!user ? "lg:pt-20 pt-29" : "lg:pt-43 pt-30"}`}>
       {/* Left Side - Hero Section */}
       <div className="mx-auto text-center lg:text-justify">
         <div className="lg:max-w-sm">
@@ -243,7 +252,7 @@ const Form = ({ setJustRegistered }) => {
 
               <p className='text-center'>or</p>
                 
-              <button type='button' className='flex mx-auto  border border-gray-300 rounded-md px-3 py-2 sm:text-sm   font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}><img src="/Logos/google1.png" alt="" width={"22px"} />Continue With Google</button>
+              <button type='button' className='flex items-center mx-auto  border border-gray-300 rounded-md px-3 py-2 sm:text-sm   font-bold text-gray-700 bg-white hover:shadow-md transition mb-2 hover:bg-gray-300 cursor-pointer' onClick={handleGoogleSignIn}><img src="/Logos/google1.png" alt="" width={"22px"} />Continue With Google</button>
                 
               
                 {isLogin ? (

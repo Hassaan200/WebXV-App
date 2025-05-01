@@ -6,7 +6,7 @@ import  b4  from '../assets/Images/b4.png'
 import  b5  from '../assets/Images/b5.png'
 import  g1  from '../assets/Images/g1.png'
 import { Link } from 'react-router'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast';
 
 const Chart = ({user}) => {
  
